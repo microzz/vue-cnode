@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+// @media screen and (min-width: 760px) {
+//   html, body {
+//     width: 80%;
+//     margin: auto;
+//   }
+//   body {
+//     box-shadow: 0 0 10px gray;
+//   }
+// }
+
+a {
+  position: relative;
+  text-decoration: none;
+  color: #3F51B5;
+  cursor: pointer;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #3F51B5;
+  transform: scaleX(0);
+  transition: .3s ease-in-out;
+}
+a:hover::after {
+  transform: scaleX(1);
+  transition: .3s ease-in-out;
+}
+@keyframes loading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+pre, code {display: block;overflow: auto;background: #f4f4f4;padding: 5px 10px;border: 1px solid #eee;word-wrap:break-word; /* Internet Explorer 5.5+ */ white-space: pre-wrap; /* Firefox */}
+
+
+
+
+.markdown-text {
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+  padding: 5px 8px;
+  margin-bottom: 10px;
+  background-color: white;
+
+  img {
+
+    width: 95%;
+  }
+  li, p {
+    text-indent: 1em;
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-size: 100%;
+  }
+  h2 {
+    font-size: 98%;
+  }
+  h3 {
+    font-size: 96%;
+  }
+  h4 {
+    font-size: 94%;
+  }
+  h5 {
+    font-size: 92%;
+  }
+  table {
+    width: 100%;
+    // padding: 0 3px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    border-collapse:collapse;
+    th {
+      border: none;
+      background-color: #009688;
+      color: white;
+    }
+    tr:nth-of-type(odd) {
+      background-color: #E0E0E0;
+      border: none;
+
+    }
+    tr:nth-of-type(even) {
+      background-color: #EFEBE9;
+      border: none;
+    }
+    td {
+      max-width: 120px;
+      padding: 0 4px;
+      font-size: 80%;
+      overflow: auto;
+    }
+  }
+}
+
+@media screen and (min-width: 760px) {
+  .markdown-text {
+    padding: 10px 50px;
+  }
+}
+
+#star {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
