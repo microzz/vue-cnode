@@ -2,6 +2,10 @@
 
 > CNode by Vue.js
 
+
+## 4.13
+基本功能完成，明天完成登录后的操作。
+
 ## Build Setup
 
 ``` bash
