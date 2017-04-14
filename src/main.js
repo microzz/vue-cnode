@@ -22,7 +22,8 @@ const store = new Vuex.Store({
     isLoading: false,
     isMore: false,
     isShowAsideMenu: false,
-    isShowLogin: false
+    isShowLogin: false,
+    userInfo: {avatar_url: '', id: '', loginname: '', success: false}
   },
 
   mutations: {
@@ -42,6 +43,9 @@ const store = new Vuex.Store({
     },
     showLogin(state, flag) {
       state.isShowLogin = flag;
+    },
+    updateUserInfo(state, userInfo) {
+      state.userInfo = userInfo;
     }
   },
 

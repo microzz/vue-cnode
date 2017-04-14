@@ -5,8 +5,8 @@
     </div>
 
     <div class="input">
-      <input type="text" placeholder="请输入Access Token">
-      <button>验证</button>
+      <input v-model="inputVal" type="text" placeholder="请输入Access Token">
+      <button @click.stop.prevent="check(inputVal)">验证</button>
     </div>
 
   </div>
@@ -15,9 +15,31 @@
 <script>
 export default {
   name: 'login',
+  data() {
+    return {
+      inputVal: ''
+    }
+  },
   methods: {
     showLogin() {
       this.$store.commit('showLogin', false);
+    },
+    check(ak) {
+      if (!ak.trim()) {
+        return;
+      }
+      this.axios.post('https://cnodejs.org/api/v1/accesstoken', {accesstoken: ak})
+        .then(result => {
+          if (result.status === 200) {
+            return result.data;
+          }
+        })
+        .catch(function (error) {
+          console.log('验证失败',error);
+        })
+        .then(userInfo => this.$store.commit('updateUserInfo', userInfo))
+
+        .then(() => console.log('this.$store.state.userInfo', this.$store.state.userInfo))
     }
   }
 }
@@ -73,10 +95,10 @@ export default {
         outline: none;
         border: none;
         height: 40px;
-        width: 70%;
+        width: 320px;
         // border-radius: 5px;
         border-bottom: 1px solid gray;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         padding: 0;
       }
       input:focus {
