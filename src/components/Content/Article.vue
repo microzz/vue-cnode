@@ -12,6 +12,26 @@
 
       <div v-html="infos.content" class="md"></div>
 
+      <div class="reply">
+        <div class="total-reply">{{infos.reply_count}} 回复</div>
+
+        <div v-for="(item, index) of infos.replies" class="reply-item">
+
+          <div class="reply-author">
+            <div class="reply-avatar">
+              <img :src="item.author.avatar_url" alt="">
+              <div class="reply-desc">
+                {{item.author.loginname}} &nbsp; {{index+1}}楼 • {{changeTime(item.create_at)}}
+              </div>
+            </div>
+          </div>
+
+          <div v-html="item.content" class="reply-content"></div>
+
+        </div>
+
+      </div>
+
     </div>
 
 
@@ -70,7 +90,6 @@ export default {
           padding-bottom: 5px;
           border-bottom: 1px solid rgba(0, 0, 0, .1);
           h1 {
-            // padding-top: 2px;
             font-size: 1.2rem;
             .flag {
               background-color: #80bd01;
@@ -93,6 +112,41 @@ export default {
         .md {
           width: 100%;
           overflow: hidden;
+        }
+
+        .reply {
+          .total-reply {
+            text-align: center;
+            width: 100px;
+            background-color: #B2DFDB;
+            border-radius: 3px;
+            // padding-left: 10px;
+            margin-bottom: 6px;
+          }
+
+          .reply-item {
+            .reply-author {
+              background-color: white;
+              border-bottom: 1px solid rgba(0, 0, 0, .1);
+              border-radius: 5px;
+              padding-left: 10px;
+              .reply-avatar {
+                display: flex;
+                width: 100%;
+                height: 50px;
+                align-items: center;
+                img {
+                  width: 30px;
+                  height: 30px;
+                  border-radius: 3px;
+                }
+                .reply-desc {
+                  flex: 1;
+                  padding-left: 10px;
+                }
+              }
+            }
+          }
         }
 
     }

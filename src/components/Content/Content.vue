@@ -14,8 +14,14 @@
         <i v-show="isLoading" class="icon-loading"></i>
       </div>
       <router-view></router-view>
-
     </div>
+
+    <transition name="slide-fade">
+      <div v-show="isShowTop" class="top">
+        <i @click.stop.prevent="toTop" class="icon-top"></i>
+      </div>
+    </transition>
+
 
   </div>
 </template>
@@ -27,7 +33,8 @@ export default {
     return {
       page: 1,
       ITEM_HEIGHT: 70,
-      over: false
+      over: false, // 是否已经没有内容加载
+      isShowTop: false
     }
   },
 
@@ -52,6 +59,11 @@ export default {
     },
 
     scroll(event) {
+      if (event.target.clientHeight > event.target.scrollTop) {
+        this.isShowTop = false;
+      } else {
+        this.isShowTop = true;
+      }
       if (this.$route.path !== '/') {
         return;
       } else if(!this.over) {
@@ -72,13 +84,20 @@ export default {
             .then(() => this.$store.commit('changeMore', false))
         }
       }
+    },
+
+    toTop() {
+      if (this.$refs.article.scrollTop <= 0) {
+        return;
+      }
+      let time = setInterval(() => {
+        if (this.$refs.article.scrollTop <= 0) {
+          clearInterval(time);
+        }
+        this.$refs.article.scrollTop -= 200;
+      }, 1)
     }
   },
-
-  mounted() {
-    // this.itemHeight = document.querySelector('.item') && document.querySelector('.item').offsetHeight;
-    // console.log('this.oItem.offsetHeight', this.oItem.offsetHeight);
-  }
 }
 </script>
 
@@ -87,9 +106,8 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
-    // background-color: gray;
     flex: 1;
-
+    position: relative;
 
     .tab {
 
@@ -132,7 +150,7 @@ export default {
       position: relative;
       width: 100%;
       overflow: auto;
-
+      transition: 1s linear;
       .loading {
         display: flex;
         justify-content: center;
@@ -149,6 +167,31 @@ export default {
         }
       }
 
+    }
+
+    .top {
+      position: fixed;
+      z-index: 1;
+      bottom: 10px;
+      right: 15px;
+      width: 40px;
+      height: 40px;
+      .icon-top {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background: url('../../common/icons/icon-top.svg') no-repeat;
+        background-size: contain;
+      }
+    }
+
+    @media screen and (min-width: 760px) {
+      .top {
+        bottom: 10px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+      }
     }
   }
 
