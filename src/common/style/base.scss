@@ -128,9 +128,10 @@ pre, code {display: block;overflow: auto;background: #f4f4f4;padding: 5px 10px;b
   transition: all .5s ease;
 }
 .slide-fade-enter, .slide-fade-leave-active {
-  transform: translateX(40px);
+  transform: translateX(60px);
   opacity: 0;
 }
+
 .slide-left-enter-active {
   transition: all .3s ease;
 }
@@ -139,5 +140,16 @@ pre, code {display: block;overflow: auto;background: #f4f4f4;padding: 5px 10px;b
 }
 .slide-left-enter, .slide-left-leave-active {
   transform: translateX(-150px);
+  opacity: 0;
+}
+
+.slide-top-enter-active {
+  transition: all .5s ease;
+}
+.slide-top-leave-active {
+  transition: all .2s ease-out;
+}
+.slide-top-enter, .slide-top-leave-active {
+  transform: translateY(-5px);
   opacity: 0;
 }

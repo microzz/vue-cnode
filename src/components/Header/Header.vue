@@ -5,6 +5,7 @@
       <i @click.stop.prevent="showAsideMenu" class="icon-menu"></i>
       <h1>CNode社区</h1>
       <i class="icon-msg"></i>
+      <span class="msg-count">10</span>
     </div>
 
   </div>
@@ -48,10 +49,25 @@ export default {
       background-size: contain;
     }
     i.icon-msg {
-      right: 20px;
+      right: 30px;
       top: 23px;
       background: url('../../common/icons/icon-msg.svg') no-repeat;
       background-size: contain;
+    }
+    span.msg-count {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      width: 20px;
+      height: 20px;
+      right: 15px;
+      top: 18px;
+      text-align: center;
+      background-color: #ff4081;
+      border-radius: 10px;
+      font-size: 80%;
     }
     h1 {
       flex: 5;

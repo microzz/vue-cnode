@@ -5,7 +5,7 @@
 
         <div class="user">
           <div class="user-avatar">
-            <img src="../../common/icons/icon-unlogin.svg" alt="">
+            <img @click="showLogin" src="../../common/icons/icon-unlogin.svg" alt="">
           </div>
           <div class="username">
             点击头像登录
@@ -30,6 +30,7 @@
             <i class="icon-about"></i>关于
           </div>
 
+          <div class="cnode"></div>
 
         </div>
 
@@ -53,6 +54,9 @@ export default {
   methods: {
     showAsideMenu() {
       this.$store.commit('showAsideMenu', false);
+    },
+    showLogin() {
+      this.$store.commit('showLogin', true);
     }
   }
 }
@@ -139,8 +143,14 @@ export default {
           background: url('../../common/icons/icon-about.svg');
           background-size: contain;
         }
-        .about {
-          // letter-spacing: 1em;
+        .cnode {
+          margin-top: 150px;
+          flex: 1;
+          width: 50%;
+          background-color: red;
+          background: url('../../common/icons/icon-cnode.svg') no-repeat;
+          background-size: contain;
+          opacity: .1;
         }
       }
     }

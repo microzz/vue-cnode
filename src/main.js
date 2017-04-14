@@ -21,7 +21,8 @@ const store = new Vuex.Store({
     articleList: [],
     isLoading: false,
     isMore: false,
-    isShowAsideMenu: false
+    isShowAsideMenu: false,
+    isShowLogin: false
   },
 
   mutations: {
@@ -38,6 +39,9 @@ const store = new Vuex.Store({
     },
     showAsideMenu(state, flag) {
       state.isShowAsideMenu = flag;
+    },
+    showLogin(state, flag) {
+      state.isShowLogin = flag;
     }
   },
 

@@ -1,22 +1,25 @@
 <template lang="html">
   <div class="article-list">
-    <div v-for="item of articleList" class="item">
-      <div class="avatar">
-        <img :src="item.author.avatar_url" alt="">
-      </div>
-      <div class="title">
-        <p>
-          <span class="flag" :class="{special: item.top || item.good}">{{(item.top ? '置顶' : '') || (item.good ? '精华': '') || types[item.tab]}}</span>
-          <!-- <a :href="item.id">{{item.title}}</a> -->
-          <router-link :to="{name: 'article', params: {id: item.id}}">{{item.title}}</router-link>
-        </p>
-        <p class="view">
-          <span class="viewed">{{item.reply_count}}</span>/{{item.visit_count}}
-          <span class="date"> {{changeTime(item.last_reply_at)}}</span>
-        </p>
-      </div>
 
-    </div>
+    <transition-group name="slide-top">
+      <div v-for="(item, index) of articleList" :key="item.last_reply_at+index" class="item">
+        <div class="avatar">
+          <img :src="item.author.avatar_url" alt="">
+        </div>
+        <div class="title">
+          <p>
+            <span class="flag" :class="{special: item.top || item.good}">{{(item.top ? '置顶' : '') || (item.good ? '精华': '') || types[item.tab]}}</span>
+            <router-link :to="{name: 'article', params: {id: item.id}}">{{item.title}}</router-link>
+          </p>
+          <p class="view">
+            <span class="viewed">{{item.reply_count}}</span>/{{item.visit_count}}
+            <span class="date"> {{changeTime(item.last_reply_at)}}</span>
+          </p>
+        </div>
+
+      </div>
+    </transition-group>
+
 
     <div class="more">
       <i v-show="isMore" class="icon-more"></i>

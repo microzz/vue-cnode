@@ -174,8 +174,8 @@ export default {
       z-index: 1;
       bottom: 10px;
       right: 15px;
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       .icon-top {
         display: inline-block;
         width: 100%;
@@ -188,9 +188,9 @@ export default {
     @media screen and (min-width: 760px) {
       .top {
         bottom: 10px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
+        right: 60px;
+        width: 55px;
+        height: 55px;
       }
     }
   }
