@@ -23,7 +23,8 @@ const store = new Vuex.Store({
     isMore: false,
     isShowAsideMenu: false,
     isShowLogin: false,
-    userInfo: {avatar_url: '', id: '', loginname: '', success: false}
+    userInfo: JSON.parse(localStorage.userInfo) || {avatar_url: '', id: '', loginname: '', success: false},
+    ak: localStorage.ak || ''
   },
 
   mutations: {
@@ -46,6 +47,9 @@ const store = new Vuex.Store({
     },
     updateUserInfo(state, userInfo) {
       state.userInfo = userInfo;
+    },
+    updateAk(state, ak) {
+      state.ak = ak;
     }
   },
 

@@ -15,11 +15,13 @@
 <script>
 export default {
   name: 'login',
+
   data() {
     return {
       inputVal: ''
     }
   },
+
   methods: {
     showLogin() {
       this.$store.commit('showLogin', false);
@@ -37,10 +39,23 @@ export default {
         .catch(function (error) {
           console.log('验证失败',error);
         })
-        .then(userInfo => this.$store.commit('updateUserInfo', userInfo))
-
-        .then(() => console.log('this.$store.state.userInfo', this.$store.state.userInfo))
+        .then(userInfo => {
+          this.$store.commit('updateUserInfo', userInfo);
+          this.$store.commit('updateAk', ak);
+          localStorage.userInfo = JSON.stringify(userInfo);
+          localStorage.ak = ak;
+          this.showLogin();
+        })
     }
+  },
+
+  computed: {
+    ak() {
+      return this.$store.state.ak;
+    }
+  },
+  mounted() {
+    this.inputVal = this.ak;
   }
 }
 </script>

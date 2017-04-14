@@ -4,8 +4,8 @@
     <div class="title">
       <i @click.stop.prevent="showAsideMenu" class="icon-menu"></i>
       <h1>CNode社区</h1>
-      <i class="icon-msg"></i>
-      <span class="msg-count">10</span>
+      <i v-show="ak" class="icon-msg"></i>
+      <span v-show="ak" class="msg-count">{{msgCount}}</span>
     </div>
 
   </div>
@@ -14,10 +14,29 @@
 <script>
 export default {
   name: 'header',
+  data() {
+    return {
+      msgCount: 0,
+    }
+  },
   methods: {
     showAsideMenu() {
       this.$store.commit('showAsideMenu', true);
     }
+  },
+  computed: {
+    ak() {
+      return this.$store.state.ak;
+    }
+  },
+  created() {
+    this.axios.get('https://cnodejs.org/api/v1/message/count?accesstoken=' + this.ak)
+      .then(result => result.data)
+      .then(data => {
+        if (data.success) {
+          this.msgCount = data.data;
+        }
+      })
   }
 }
 </script>

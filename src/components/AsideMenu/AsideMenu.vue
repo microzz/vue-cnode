@@ -5,10 +5,10 @@
 
         <div class="user">
           <div class="user-avatar">
-            <img @click="showLogin" src="../../common/icons/icon-unlogin.svg" alt="">
+            <img @click="showLogin" :src="userInfo.avatar_url || '../../../static/images/icon-unlogin.svg'" alt="">
           </div>
           <div class="username">
-            点击头像登录
+            {{userInfo.success ? userInfo.loginname : '点击头像登录'}}
           </div>
         </div>
 
@@ -49,6 +49,9 @@ export default {
   computed: {
     isShowAsideMenu() {
       return this.$store.state.isShowAsideMenu;
+    },
+    userInfo() {
+      return this.$store.state.userInfo;
     }
   },
   methods: {
@@ -95,6 +98,10 @@ export default {
             height: 100px;
             border-radius: 50px;
           }
+        }
+
+        .username {
+          font-size: 1.2rem;
         }
       }
 
