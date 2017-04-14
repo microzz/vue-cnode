@@ -117,7 +117,7 @@ export default {
       align-items: center;
       text-align: center;
       color: white;
-      background-color: #00bcd4;
+      background-color: #2196F3;
       font-size: 110%;
       letter-spacing: 2px;
       a {

@@ -20,7 +20,8 @@ const store = new Vuex.Store({
     tab: 'all',
     articleList: [],
     isLoading: false,
-    isMore: false
+    isMore: false,
+    isShowAsideMenu: false
   },
 
   mutations: {
@@ -34,6 +35,9 @@ const store = new Vuex.Store({
     },
     changeMore(state, flag) {
       state.isMore = flag;
+    },
+    showAsideMenu(state, flag) {
+      state.isShowAsideMenu = flag;
     }
   },
 

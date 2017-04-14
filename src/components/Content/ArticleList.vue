@@ -136,6 +136,10 @@ export default {
 
       }
 
+      .title:hover {
+        background-color: #F5F5F5;
+      }
+
       @media screen and (min-width: 760px) {
         .title {
           padding-left: 3%;
@@ -148,6 +152,7 @@ export default {
         }
       }
     }
+
     @media screen and (min-width: 760px) {
       .item {
         margin: auto;

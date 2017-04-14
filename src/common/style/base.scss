@@ -128,6 +128,16 @@ pre, code {display: block;overflow: auto;background: #f4f4f4;padding: 5px 10px;b
   transition: all .5s ease;
 }
 .slide-fade-enter, .slide-fade-leave-active {
-  transform: translateX(20px);
+  transform: translateX(40px);
+  opacity: 0;
+}
+.slide-left-enter-active {
+  transition: all .3s ease;
+}
+.slide-left-leave-active {
+  transition: all .2s ease-out;
+}
+.slide-left-enter, .slide-left-leave-active {
+  transform: translateX(-150px);
   opacity: 0;
 }

@@ -1,0 +1,152 @@
+<template lang="html">
+  <transition name="slide-left">
+    <div v-show="isShowAsideMenu" class="aside-menu">
+      <div class="menu">
+
+        <div class="user">
+          <div class="user-avatar">
+            <img src="../../common/icons/icon-unlogin.svg" alt="">
+          </div>
+          <div class="username">
+            点击头像登录
+          </div>
+        </div>
+
+        <div class="infos block">
+
+          <div class="msg block">
+            <i class="icon-msg"></i>我的消息
+          </div>
+
+          <div class="collect block">
+            <i class="icon-collect"></i>我的收藏
+          </div>
+
+          <div class="info block">
+            <i class="icon-info"></i>我的信息
+          </div>
+
+          <div class="about block">
+            <i class="icon-about"></i>关于
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <div @click.stop.prevent="showAsideMenu" class="mask"></div>
+
+    </div>
+  </transition>
+
+</template>
+
+<script>
+export default {
+  name: 'asideMenu',
+  computed: {
+    isShowAsideMenu() {
+      return this.$store.state.isShowAsideMenu;
+    }
+  },
+  methods: {
+    showAsideMenu() {
+      this.$store.commit('showAsideMenu', false);
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .aside-menu {
+    position: absolute;
+    display: flex;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      width: 220px;
+      background-color: white;
+      box-shadow: 0 0 12px gray;
+      .user {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 200px;
+        background-color: #2196F3;
+        color: white;
+        .user-avatar {
+          img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+          }
+        }
+      }
+
+      .infos {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+
+        .block {
+          width: 100%;
+          height: 50px;
+          display: flex;
+          padding-left: 50px;
+          align-items: center;
+        }
+
+        .block + .block {
+          border-top: 1px solid rgba(0, 0, 0, .05);
+        }
+        i {
+          display: inline-block;
+          width: 22px;
+          height: 22px;
+          background-repeat: no-repeat;
+          margin-right: 8px;
+        }
+        .icon-msg {
+          background: url('../../common/icons/icon-msg-blue.svg');
+          background-size: contain;
+        }
+        .icon-collect {
+          background: url('../../common/icons/icon-collect.svg');
+          background-size: contain;
+        }
+        .icon-msg {
+          background: url('../../common/icons/icon-msg-blue.svg');
+          background-size: contain;
+        }
+        .icon-info {
+          background: url('../../common/icons/icon-info.svg');
+          background-size: contain;
+        }
+        .icon-about {
+          background: url('../../common/icons/icon-about.svg');
+          background-size: contain;
+        }
+        .about {
+          // letter-spacing: 1em;
+        }
+      }
+    }
+
+    .mask {
+      flex: 1;
+    }
+  }
+</style>

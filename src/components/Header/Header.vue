@@ -2,7 +2,7 @@
   <div class="header">
 
     <div class="title">
-      <i class="icon-menu"></i>
+      <i @click.stop.prevent="showAsideMenu" class="icon-menu"></i>
       <h1>CNode社区</h1>
       <i class="icon-msg"></i>
     </div>
@@ -12,6 +12,12 @@
 
 <script>
 export default {
+  name: 'header',
+  methods: {
+    showAsideMenu() {
+      this.$store.commit('showAsideMenu', true);
+    }
+  }
 }
 </script>
 
@@ -22,13 +28,14 @@ export default {
     flex-direction: column;
     width: 100%;
     height: 70px;
-    background-color: #00bcd4;
+    background-color: #2196F3;
     color: white;
     justify-content: center;
     align-items: center;
     box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
     i {
       position: absolute;
+      z-index: 1;
       display: inline-block;
       flex: 1;
       width: 25px;
