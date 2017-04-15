@@ -16,7 +16,7 @@
     </transition>
 
     <transition name="show">
-      <Msg v-if="false"></Msg>
+      <Msg v-if="isShowMsg"></Msg>
     </transition>
 
 

@@ -50,6 +50,9 @@ const store = new Vuex.Store({
     showInfo(state, flag) {
       state.isShowInfo = flag;
     },
+    showMsg(state, flag) {
+      state.isShowMsg = flag;
+    },
     updateUserInfo(state, userInfo) {
       state.userInfo = userInfo;
     },

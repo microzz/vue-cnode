@@ -14,7 +14,7 @@
 
         <div class="infos block">
 
-          <div class="msg block">
+          <div @click="showMsg" class="msg block">
             <i class="icon-msg"></i>我的消息
           </div>
 
@@ -59,6 +59,10 @@ export default {
     },
     showInfo() {
       this.$store.commit('showInfo', true);
+      this.$router.push('/')
+    },
+    showMsg() {
+      this.$store.commit('showMsg', true);
       this.$router.push('/')
     }
   }
