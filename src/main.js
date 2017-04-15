@@ -23,6 +23,8 @@ const store = new Vuex.Store({
     isMore: false,
     isShowAsideMenu: false,
     isShowLogin: false,
+    isShowInfo: false,
+    isShowMsg: false,
     userInfo: JSON.parse(localStorage.userInfo) || {avatar_url: '', id: '', loginname: '', success: false},
     ak: localStorage.ak || ''
   },
@@ -44,6 +46,9 @@ const store = new Vuex.Store({
     },
     showLogin(state, flag) {
       state.isShowLogin = flag;
+    },
+    showInfo(state, flag) {
+      state.isShowInfo = flag;
     },
     updateUserInfo(state, userInfo) {
       state.userInfo = userInfo;

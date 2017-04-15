@@ -7,9 +7,18 @@
 
     <AsideMenu></AsideMenu>
 
-    <transition name="show-login">
+    <transition name="show">
       <Login v-if="isShowLogin"></Login>
     </transition>
+
+    <transition name="show">
+      <Info v-if="isShowInfo"></Info>
+    </transition>
+
+    <transition name="show">
+      <Msg v-if="false"></Msg>
+    </transition>
+
 
 
   </div>
@@ -20,6 +29,8 @@ import VHeader from './components/Header/Header.vue';
 import VContent from './components/Content/Content.vue';
 import AsideMenu from './components/AsideMenu/AsideMenu.vue';
 import Login from './components/Login/Login.vue';
+import Info from './components/Info/Info.vue';
+import Msg from './components/Msg/Msg.vue';
 
 export default {
   name: 'app',
@@ -27,11 +38,19 @@ export default {
     VHeader,
     VContent,
     AsideMenu,
-    Login
+    Login,
+    Info,
+    Msg
   },
   computed: {
     isShowLogin() {
       return this.$store.state.isShowLogin;
+    },
+    isShowInfo() {
+      return this.$store.state.isShowInfo;
+    },
+    isShowMsg() {
+      return this.$store.state.isShowMsg;
     }
   }
 }
@@ -40,13 +59,13 @@ export default {
 <style lang="scss">
 @import "./common/style/base.scss";
 
-.show-login-enter-active {
+.show-enter-active {
   transition: all .3s ease;
 }
-.show-login-leave-active {
+.show-leave-active {
   transition: all .2s ease-in;
 }
-.show-login-enter, .show-login-leave-active {
+.show-enter, .show-leave-active {
   transform: translateX(200px);
   opacity: 0;
 }

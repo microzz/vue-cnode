@@ -13,6 +13,7 @@
       <div v-html="infos.content" class="md"></div>
 
       <div class="reply">
+
         <div class="total-reply">{{infos.reply_count}} 回复</div>
 
         <div v-for="(item, index) of infos.replies" class="reply-item">
@@ -21,7 +22,8 @@
             <div class="reply-avatar">
               <img :src="item.author.avatar_url" alt="">
               <div class="reply-desc">
-                {{item.author.loginname}} &nbsp; {{index+1}}楼 • {{changeTime(item.create_at)}}
+                <router-link :to="{name: 'user', params: {name: item.author.loginname}}">{{item.author.loginname}}</router-link>
+                   &nbsp; {{index+1}}楼 • {{changeTime(item.create_at)}}
               </div>
             </div>
           </div>
@@ -34,6 +36,9 @@
 
     </div>
 
+    <div class="back">
+      <i @click.stop.prevent="$router.go(-1)" class="icon-back"></i>
+    </div>
 
   </div>
 </template>
@@ -51,12 +56,14 @@ export default {
   },
   created() {
     this.$store.commit('viewArcticle', true);
+    this.$store.commit('showInfo', false);
+    this.$store.commit('showAsideMenu', false);
     this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
       .then(result => result.data.data)
       .then(data => this.infos = data)
       .then(() => this.$store.commit('viewArcticle', false))
       .then(() => {
-        this.oImgs = document.querySelectorAll('img');
+        this.oImgs = document.querySelector('.md').querySelectorAll('img');
         for (let img of this.oImgs) {
           img.onclick = () => location.href = img.src;
         }
@@ -151,7 +158,23 @@ export default {
 
     }
 
+    .back {
+      position: fixed;
+      top: 60%;
+      left: -8px;
+      width: 50px;
+      height: 50px;
 
+      i.icon-back {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background: url('../../common/icons/icon-back-blue.svg') no-repeat;
+        background-size: contain;
+        opacity: .5;
+        cursor: pointer;
+      }
+    }
 
   }
   @media screen and (min-width: 760px) {

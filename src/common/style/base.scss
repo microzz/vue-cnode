@@ -43,7 +43,9 @@ a:hover::after {
 
 pre, code {display: block;overflow: auto;background: #f4f4f4;padding: 5px 10px;border: 1px solid #eee;word-wrap:break-word; /* Internet Explorer 5.5+ */ white-space: pre-wrap; /* Firefox */}
 
-
+i, li {
+  cursor: pointer;
+}
 
 
 .markdown-text {

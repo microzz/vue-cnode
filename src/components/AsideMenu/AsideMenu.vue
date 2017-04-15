@@ -18,12 +18,8 @@
             <i class="icon-msg"></i>我的消息
           </div>
 
-          <div class="collect block">
-            <i class="icon-collect"></i>我的收藏
-          </div>
-
-          <div class="info block">
-            <i class="icon-info"></i>我的信息
+          <div @click="showInfo" class="info block">
+            <i class="icon-info"></i>个人中心
           </div>
 
           <div class="about block">
@@ -60,6 +56,10 @@ export default {
     },
     showLogin() {
       this.$store.commit('showLogin', true);
+    },
+    showInfo() {
+      this.$store.commit('showInfo', true);
+      this.$router.push('/')
     }
   }
 }
@@ -118,6 +118,7 @@ export default {
           display: flex;
           padding-left: 50px;
           align-items: center;
+          cursor: pointer;
         }
 
         .block + .block {

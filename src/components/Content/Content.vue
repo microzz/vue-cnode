@@ -2,7 +2,7 @@
   <div class="content">
 
     <div class="tab">
-      <div @click="changeTab('all')" :class="{isBorder: tab==='all'}" class="all type"><router-link to="/">全部</router-link></div>
+      <div @click="changeTab('all')" :class="{isBorder: tab==='all'}" class="all type"><router-link to="/">首页</router-link></div>
       <div @click="changeTab('good')" :class="{isBorder: tab==='good'}" class="good type"><router-link to="/">精华</router-link></div>
       <div @click="changeTab('share')" :class="{isBorder: tab==='share'}" class="share type"><router-link to="/">分享</router-link></div>
       <div @click="changeTab('ask')" :class="{isBorder: tab==='ask'}" class="ask type"><router-link to="/">问答</router-link></div>
@@ -32,7 +32,6 @@ export default {
   data() {
     return {
       page: 1,
-      ITEM_HEIGHT: 70,
       over: false, // 是否已经没有内容加载
       isShowTop: false
     }
