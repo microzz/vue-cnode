@@ -18,6 +18,10 @@
             <i class="icon-msg"></i>我的消息
           </div>
 
+          <div @click="showNewArticle" class="new block">
+            <i class="icon-new"></i>发布话题
+          </div>
+
           <div @click="showInfo" class="info block">
             <i class="icon-info"></i>个人中心
           </div>
@@ -64,6 +68,9 @@ export default {
     showMsg() {
       this.$store.commit('showMsg', true);
       this.$router.push('/')
+    },
+    showNewArticle() {
+      this.$store.commit('showNewArticle', true);
     }
   }
 }
@@ -145,6 +152,10 @@ export default {
         }
         .icon-msg {
           background: url('../../common/icons/icon-msg-blue.svg');
+          background-size: contain;
+        }
+        .icon-new {
+          background: url('../../common/icons/icon-new.svg');
           background-size: contain;
         }
         .icon-info {

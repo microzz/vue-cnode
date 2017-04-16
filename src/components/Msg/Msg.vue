@@ -7,10 +7,10 @@
     <div class="msg-content">
       <div class="msg-read">
         <div :class="{selected: isOnRead}" @click.stop.prevent="changeTab(true)" class="has-no">
-          未读消息:0
+          未读消息: {{ msg.hasnot_read_messages.length }}
         </div>
         <div :class="{selected: !isOnRead}" @click.stop.prevent="changeTab(false)" class="has">
-          已读消息:2
+          已读消息: {{ msg.has_read_messages.length }}
         </div>
       </div>
 
@@ -19,27 +19,33 @@
 
     <div class="msg-list">
 
-      <div v-for="item of (isOnRead ? msg.hasnot_read_messages : msg.has_read_messages)" class="msg-item">
-          <div class="msg-body">
-            <div class="msg-name">
-              {{ item.author.loginname }} 的回复：
+      <transition-group name="show">
+        <div v-for="(item, index) of (isOnRead ? msg.hasnot_read_messages : msg.has_read_messages)" :key="item.id+index" class="msg-item">
+            <div class="msg-body">
+              <div class="msg-name">
+                <span @click="view">
+                  <router-link  :to="{name: 'user', params: {name: item.author.loginname}}"">{{ item.author.loginname }}</router-link>
+                </span> 的回复：
+
+              </div>
+              <div v-html="item.reply.content" class="msg-msg">
+
+              </div>
+              <div @click="view">
+
+
+                  <div class="msg-from">
+                    <router-link  :to="{name: 'article', params: {id: item.topic.id}}"">
+                      来自：{{ item.topic.title }}
+                    </router-link>
+
+                  </div>
+
+              </div>
             </div>
-            <div v-html="item.reply.content" class="msg-msg">
+        </div>
+      </transition-group>
 
-            </div>
-            <div @click="view">
-              <router-link  :to="{name: 'article', params: {id: item.topic.id}}"">
-
-                <div class="msg-from">
-                  来自：{{ item.topic.title }}
-                </div>
-              </router-link>
-            </div>
-
-          </div>
-
-
-      </div>
 
     </div>
 
@@ -51,7 +57,11 @@ export default {
   name: 'msg',
   data() {
     return {
-      msg: {},
+      msg: {
+        hasnot_read_messages: [],
+        has_read_messages: []
+
+      },
       isOnRead: true
     }
   },
@@ -71,7 +81,6 @@ export default {
     },
     changeTab(flag) {
       this.isOnRead = flag;
-      console.log('this.isOnRead', this.isOnRead);
     },
     view() {
 
@@ -184,7 +193,7 @@ export default {
             font-size: 1.3rem;
           }
           .msg-from {
-            color: gray;
+            // color: gray;
             font-size: 80%;
           }
         }

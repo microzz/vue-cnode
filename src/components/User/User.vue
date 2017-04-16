@@ -105,7 +105,7 @@ export default {
     }
   },
   created() {
-
+    this.$store.commit('showAsideMenu', false);
     // 收藏
     this.axios.get(`https://cnodejs.org/api/v1/topic_collect/${this.$route.params.name}`)
       .then(result => result.data.data)

@@ -19,6 +19,10 @@
       <Msg v-if="isShowMsg"></Msg>
     </transition>
 
+    <transition name="show">
+      <NewArticle v-if="isShowNewArticle"></NewArticle>
+    </transition>
+
 
 
   </div>
@@ -31,6 +35,7 @@ import AsideMenu from './components/AsideMenu/AsideMenu.vue';
 import Login from './components/Login/Login.vue';
 import Info from './components/Info/Info.vue';
 import Msg from './components/Msg/Msg.vue';
+import NewArticle from './components/NewArticle/NewArticle.vue';
 
 export default {
   name: 'app',
@@ -40,7 +45,8 @@ export default {
     AsideMenu,
     Login,
     Info,
-    Msg
+    Msg,
+    NewArticle
   },
   computed: {
     isShowLogin() {
@@ -51,6 +57,9 @@ export default {
     },
     isShowMsg() {
       return this.$store.state.isShowMsg;
+    },
+    isShowNewArticle() {
+      return this.$store.state.isShowNewArticle;
     }
   }
 }

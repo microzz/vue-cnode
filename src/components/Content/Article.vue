@@ -6,7 +6,7 @@
       <div class="article-title">
         <h1><span class="flag" v-show="infos.top || infos.good">{{infos.top ? '置顶' : '精华'}}</span>{{infos.title}}</h1>
         <div class="desc">
-           <p> 发布于 {{changeTime(infos.create_at)}}  作者 {{infos.author && infos.author.loginname}}  {{infos.visit_count}} 次浏览  来自 {{types[infos.tab]}}</p>
+           <p> 发布于 {{changeTime(infos.create_at)}}  作者 <router-link :to="{name: 'user', params: {name: infos.author && infos.author.loginname}}">{{infos.author && infos.author.loginname}}</router-link>  {{infos.visit_count}} 次浏览  来自 {{types[infos.tab]}}</p>
         </div>
       </div>
 
