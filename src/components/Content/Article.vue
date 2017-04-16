@@ -19,6 +19,10 @@
           <div class="total-reply">{{infos.reply_count}} 回复</div>
         </div>
 
+        <div class="reply-input">
+          <input v-model.trim="replyContent" type="text">
+          <button @click="reply('')" type="button">回复</button>
+        </div>
 
         <div v-for="(item, index) of infos.replies" class="reply-item">
 
@@ -27,12 +31,23 @@
               <img :src="item.author.avatar_url" alt="">
               <div class="reply-desc">
                 <router-link :to="{name: 'user', params: {name: item.author && item.author.loginname}}">{{item.author.loginname}}</router-link>
-                   &nbsp; {{index+1}}楼 • {{changeTime(item.create_at)}}
+                  {{index+1}}楼 • {{changeTime(item.create_at)}}
+                  <span @click="currentIndex=index" class="reply-at">回复</span>
+                  <i @click="ups(index)" :class="[currentUps===index ? 'ups-yes' : 'ups-no']" class="icon-reply-at"></i>
               </div>
             </div>
           </div>
 
           <div v-html="item.content" class="reply-content"></div>
+
+          <transition name="slide-top">
+            <div v-show="currentIndex===index" class="reply-one">
+              <input type="text" name="" v-model.trim="replyOneContent" :placeholder="'@' + item.author.loginname">
+              <button @click="reply(item.id, item.author.loginname)">回复</button>
+              <button @click="currentIndex=null;replyOneContent=''">取消</button>
+            </div>
+          </transition>
+
 
         </div>
 
@@ -56,7 +71,14 @@ export default {
       infos: {},
       types: { share: '分享', ask: '问答', job: '招聘'},
       oImgs: [],
-      isCollected: false
+      isCollected: false,
+      replyContent: '',
+      replyOneContent: '',
+      isReplyOne: false,
+      isUps: false,
+      currentIndex: null, // 回复某个人的 index
+      currentUps: null
+
     }
   },
   created() {
@@ -66,6 +88,7 @@ export default {
     this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
       .then(result => result.data.data)
       .then(data => this.infos = data)
+      .then(data => console.log('data', data))
       .then(() => this.$store.commit('viewArcticle', false))
       .then(() => {
         this.oImgs = document.querySelector('.md').querySelectorAll('img');
@@ -128,6 +151,28 @@ export default {
           }
         })
       }
+    },
+    reply(id, name) {
+      if (!this.ak) {
+        this.$store.commit('showLogin', true);
+        return;
+      }
+      else if (!id) {
+        this.axios.post(`https://cnodejs.org/api/v1/topic/${this.id}/replies`, {
+          accesstoken: this.ak,
+          content: this.replyContent
+        }).then(() => location.reload())
+      } else {
+        console.log('id', id);
+        this.axios.post(`https://cnodejs.org/api/v1/topic/${this.id}/replies`, {
+          accesstoken: this.ak,
+          content: '@' + name + ' ' + this.replyOneContent,
+          reply_id: id
+        }).then(() => location.reload())
+      }
+    },
+    ups(index) {
+      this.currentUps === index ? this.currentUps = null : this.currentUps = index;
     }
   }
 }
@@ -141,7 +186,8 @@ export default {
     height: 100%;
     padding: 8px 5px 0 5px;
     background-color: rgba(0, 0, 0, .07);
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     .body {
         background-color: white;
         height: 100%;
@@ -178,10 +224,11 @@ export default {
         }
 
         .reply {
+
           .other {
             margin-top: 20px;
             margin-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 0, 0, .05);
+            // border-bottom: 1px solid rgba(0, 0, 0, .05);
             padding-left: 10px;
             display: flex;
             justify-content: space-between;
@@ -200,6 +247,34 @@ export default {
               background: url('../../common/icons/icon-collect-no.svg') no-repeat;
               background-size: contain;
               background-position: 0 3px;
+            }
+          }
+
+          .reply-input {
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            padding-top: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            input {
+              width: 80%;
+              height: 40px;
+              font-size: 1.3rem;
+              border-bottom: 1px solid rgba(0, 0, 0, .5);
+              margin-right: 10px;
+              padding-left: 5px;
+              padding-right: 5px;
+            }
+            button {
+              font-size: 1.3rem;
+              padding: 3px 5px;
+              background-color: #2196f3;
+              color: white;
+              border-radius: 3px;
             }
           }
 
@@ -229,9 +304,66 @@ export default {
                   border-radius: 3px;
                 }
                 .reply-desc {
+                  position: relative;
                   flex: 1;
                   padding-left: 10px;
+                  .reply-at {
+                    position: absolute;
+                    right: 50px;
+                  }
+                  .icon-reply-at {
+                    position: absolute;
+                    right: 20px;
+                    top: -2px;
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+
+                  }
+                  .ups-yes {
+                    background: url('../../common/icons/icon-ups-yes.svg') no-repeat;
+                    background-size: contain;
+                  }
+                  .ups-no {
+                    background: url('../../common/icons/icon-ups-no.svg') no-repeat;
+                    background-size: contain;
+                  }
                 }
+              }
+            }
+
+            .reply-one {
+              width: 100%;
+              height: 30px;
+              // background-color: red;
+              margin-bottom: 20px;
+              padding-top: 2px;
+
+              input {
+                width: 65%;
+                height: 100%;
+                background: none;
+                border-bottom: 1px solid rgba(0, 0, 0, .1);
+                font-size: 1.3rem;
+                color: gray;
+              }
+              input:focus {
+                border-bottom: 1px solid #00bcd4;
+                color: black;
+              }
+              button {
+                font-size: 1.2rem;
+                vertical-align: bottom;
+                padding: 2px 5px;
+                border-radius: 2px;
+              }
+              button:nth-of-type(1) {
+                background-color: #2196f3;
+                color: white;
+              }
+              button:nth-of-type(2) {
+                background-color: white;
+                color: gray;
               }
             }
           }
