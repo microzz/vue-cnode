@@ -22,7 +22,7 @@
             <div class="reply-avatar">
               <img :src="item.author.avatar_url" alt="">
               <div class="reply-desc">
-                <router-link :to="{name: 'user', params: {name: item.author.loginname}}">{{item.author.loginname}}</router-link>
+                <router-link :to="{name: 'user', params: {name: item.author && item.author.loginname}}">{{item.author.loginname}}</router-link>
                    &nbsp; {{index+1}}楼 • {{changeTime(item.create_at)}}
               </div>
             </div>
