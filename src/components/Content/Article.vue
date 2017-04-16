@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="article-detail">
+  <div @scroll="toScroll($event)" class="article-detail">
 
     <div v-show="!isLoading" class="body">
 
@@ -33,7 +33,8 @@
                 <router-link :to="{name: 'user', params: {name: item.author && item.author.loginname}}">{{item.author.loginname}}</router-link>
                   {{index+1}}楼 • {{changeTime(item.create_at)}}
                   <span @click="currentIndex=index" class="reply-at">回复</span>
-                  <i @click="ups(index)" :class="[currentUps===index ? 'ups-yes' : 'ups-no']" class="icon-reply-at"></i>
+                  <i @click="ups(index, item.id, item)" :class="[item.ups.indexOf(userInfo.id) !== -1 ? 'ups-yes' : 'ups-no']" class="icon-reply-at"></i>
+                  <span class="ups-count">{{ item.ups.length }}</span>
               </div>
             </div>
           </div>
@@ -76,9 +77,11 @@ export default {
       replyOneContent: '',
       isReplyOne: false,
       isUps: false,
+      flag: true,
+      up: 0,
       currentIndex: null, // 回复某个人的 index
-      currentUps: null
-
+      currentUps: null,
+      oArticleDetail: {}
     }
   },
   created() {
@@ -88,7 +91,6 @@ export default {
     this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
       .then(result => result.data.data)
       .then(data => this.infos = data)
-      .then(data => console.log('data', data))
       .then(() => this.$store.commit('viewArcticle', false))
       .then(() => {
         this.oImgs = document.querySelector('.md').querySelectorAll('img');
@@ -96,6 +98,9 @@ export default {
           img.onclick = () => location.href = img.src;
         }
       })
+  },
+  mounted() {
+    this.oArticleDetail = document.getElementById('article-detail');
   },
   computed: {
     isLoading() {
@@ -126,6 +131,9 @@ export default {
 
   },
   methods: {
+    toScroll(event) {
+      this.oArticleDetail = event.target;
+    },
     collect() {
       if (!this.ak) {
         this.$store.commit('showLogin', true);
@@ -152,6 +160,7 @@ export default {
         })
       }
     },
+
     reply(id, name) {
       if (!this.ak) {
         this.$store.commit('showLogin', true);
@@ -161,18 +170,48 @@ export default {
         this.axios.post(`https://cnodejs.org/api/v1/topic/${this.id}/replies`, {
           accesstoken: this.ak,
           content: this.replyContent
-        }).then(() => location.reload())
+        }).then(() => {
+          this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
+            .then(result => result.data.data)
+            .then(data => this.infos = data)
+            .then(() => {
+              this.oArticleDetail.scrollTop = this.oArticleDetail.scrollHeight;
+              this.replyContent ='';
+          })
+        })
       } else {
-        console.log('id', id);
         this.axios.post(`https://cnodejs.org/api/v1/topic/${this.id}/replies`, {
           accesstoken: this.ak,
           content: '@' + name + ' ' + this.replyOneContent,
           reply_id: id
-        }).then(() => location.reload())
+        }).then(() => {
+          this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
+            .then(result => result.data.data)
+            .then(data => this.infos = data)
+            .then(() => {
+              this.oArticleDetail.scrollTop = this.oArticleDetail.scrollHeight;
+              this.currentIndex = null;
+              this.replyOneContent = ''
+            })
+        })
       }
     },
-    ups(index) {
-      this.currentUps === index ? this.currentUps = null : this.currentUps = index;
+
+    //点赞
+    ups(index, upsId, item) {
+      if (item.author.loginname === this.userInfo.loginname) {
+        alert('不能自己为自己点赞哦😯')
+        return;
+      }
+      this.axios.post(`https://cnodejs.org/api/v1/reply/${upsId}/ups`, {accesstoken: this.ak})
+        .then(result => {
+          if (result.data.success) {
+            this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
+              .then(result => result.data.data)
+              .then(data => this.infos = data)
+          }
+        })
+
     }
   }
 }
@@ -309,11 +348,11 @@ export default {
                   padding-left: 10px;
                   .reply-at {
                     position: absolute;
-                    right: 50px;
+                    right: 70px;
                   }
                   .icon-reply-at {
                     position: absolute;
-                    right: 20px;
+                    right: 35px;
                     top: -2px;
                     display: inline-block;
                     width: 20px;
@@ -327,6 +366,10 @@ export default {
                   .ups-no {
                     background: url('../../common/icons/icon-ups-no.svg') no-repeat;
                     background-size: contain;
+                  }
+                  span.ups-count {
+                    position: absolute;
+                    right: 20px;
                   }
                 }
               }
