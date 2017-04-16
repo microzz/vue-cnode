@@ -53,6 +53,10 @@ export default {
       this.$store.commit('showNewArticle', false)
     },
     send() {
+      if (!this.ak) {
+        this.$store.commit('showLogin', true);
+        return;
+      }
       if (this.type === '分享') {
         this.type = 'share'
       } else if (this.type === '问答') {

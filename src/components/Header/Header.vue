@@ -30,6 +30,9 @@ export default {
     }
   },
   created() {
+    if (!this.ak) {
+      return;
+    }
     this.axios.get('https://cnodejs.org/api/v1/message/count?accesstoken=' + this.ak)
       .then(result => result.data)
       .then(data => {

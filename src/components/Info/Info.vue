@@ -96,7 +96,6 @@ export default {
   name: 'info',
   data() {
     return {
-      collectTopics: [],
       user: {},
       isShowContent: false
     }
@@ -104,14 +103,24 @@ export default {
   computed: {
     userInfo() {
       return this.$store.state.userInfo;
+    },
+    collectTopics() {
+      return this.$store.state.collectTopics;
+    },
+    ak() {
+      return this.$store.state.ak;
     }
   },
   created() {
-
+    if (!this.ak) {
+      this.$store.commit('showInfo', false);
+      this.$store.commit('showLogin', true);
+      return;
+    }
     // 收藏
     this.axios.get(`https://cnodejs.org/api/v1/topic_collect/${this.userInfo.loginname}`)
       .then(result => result.data.data)
-      .then(collectTopics => this.collectTopics = collectTopics)
+      .then(collectTopics => this.$store.commit('updateCollect', collectTopics))
       .then(() => this.axios.get(`https://cnodejs.org/api/v1/user/${this.userInfo.loginname}`))
       .then(result => result.data.data)
       .then(user => this.user = user)

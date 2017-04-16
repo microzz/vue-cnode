@@ -19,6 +19,7 @@ const store = new Vuex.Store({
   state: {
     tab: 'all',
     articleList: [],
+    collectTopics: [],
     isLoading: false,
     isMore: false,
     isShowAsideMenu: false,
@@ -26,7 +27,7 @@ const store = new Vuex.Store({
     isShowInfo: false,
     isShowMsg: false,
     isShowNewArticle: false,
-    userInfo: JSON.parse(localStorage.userInfo) || {avatar_url: '', id: '', loginname: '', success: false},
+    userInfo: localStorage.userInfo && JSON.parse(localStorage.userInfo) || {avatar_url: '', id: '', loginname: '', success: false},
     ak: localStorage.ak || ''
   },
 
@@ -62,6 +63,9 @@ const store = new Vuex.Store({
     },
     updateAk(state, ak) {
       state.ak = ak;
+    },
+    updateCollect(state, collectTopics) {
+      state.collectTopics = collectTopics;
     }
   },
 

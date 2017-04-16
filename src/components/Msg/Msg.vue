@@ -71,6 +71,10 @@ export default {
     }
   },
   created() {
+    if (!this.ak) {
+      this.$store.commit('showLogin', true);
+      return;
+    }
     this.axios.get(`https://cnodejs.org/api/v1/messages?accesstoken=${this.ak}`)
       .then(result => result.data.data)
       .then(msg => this.msg = msg)
@@ -83,10 +87,7 @@ export default {
       this.isOnRead = flag;
     },
     view() {
-
       this.$store.commit('showMsg', false);
-      // this.$router.push('/')
-
     }
   }
 }

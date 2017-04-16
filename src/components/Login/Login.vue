@@ -25,6 +25,7 @@ export default {
   methods: {
     showLogin() {
       this.$store.commit('showLogin', false);
+      this.$store.commit('showMsg', false);
     },
     check(ak) {
       if (!ak.trim()) {
@@ -67,7 +68,7 @@ export default {
     flex-direction: column;
     // justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     bottom: 0;
     right: 0;
