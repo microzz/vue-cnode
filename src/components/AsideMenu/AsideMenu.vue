@@ -111,6 +111,7 @@ export default {
             width: 100px;
             height: 100px;
             border-radius: 50px;
+            cursor: pointer;
           }
         }
 

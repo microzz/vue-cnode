@@ -8,9 +8,8 @@ Vue.js打造一个开源的CNode社区，实现了浏览、发帖、收藏、回
 欢迎大家star和fork😄
 
 ## 预览
-在线预览地址：👉 https://microzz.com:3000/
+在线预览地址：👉 https://microzz.com/vue-cnode/
 
-预览：
 
 ## 技术栈* **Vue2.0**：前端页面展示。
 * **Vuex**：Vuex，实现不同组件间的状态共享

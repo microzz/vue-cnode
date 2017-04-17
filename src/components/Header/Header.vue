@@ -97,6 +97,11 @@ export default {
     h1 {
       flex: 5;
       letter-spacing: 2px;
+      transition: .3s ease-in-out;
+    }
+    h1:hover {
+      transform: rotate(8deg);
+      transition: .3s ease-in-out;
     }
   }
 </style>

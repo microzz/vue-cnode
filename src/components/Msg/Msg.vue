@@ -150,6 +150,7 @@ export default {
           justify-content: center;
           align-items: center;
           border-right: 1px solid rgba(255, 255, 255, .2);
+          cursor: pointer;
 
         }
         .has {
@@ -157,6 +158,7 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
+          cursor: pointer;
         }
         .selected {
           border-bottom: 2px solid #ff4081;
