@@ -3,7 +3,7 @@
 Vue.js打造一个开源的CNode社区，实现了浏览、发帖、收藏、回复、点赞、个人中心等等功能。
 
 ## 源代码
-源代码地址：👉 https://github.com/microzz/vue-cnode 
+源代码地址：👉 https://github.com/microzz/vue-cnode
 
 欢迎大家star和fork😄
 
@@ -22,7 +22,7 @@ Vue.js打造一个开源的CNode社区，实现了浏览、发帖、收藏、回
 
 ## 总结1. 组件状态多了用Vuex管理很方便，引用 Redux 的作者 Dan Abramov 的话说就是：
 > Flux 架构就像眼镜：您自会知道什么时候需要它。2. 事先一定要先想好整个页面组成，怎样去分组件开发，这样在开发阶段会事半功倍。
-3. Moment.js在Vue中用ES6的方式引入会有问题，可以尝试在main.js尝试这样`import moment from 'moment'``Vue.prototype.moment = moment;`给Vue的原型上添加moment，这样就可以在Vue的实例中随意使用它了。
+3. Moment.js在Vue中用ES6的方式引入会有问题，可以尝试在main.js尝试这样`import moment from 'moment'` `Vue.prototype.moment = moment;`给Vue的原型上添加moment，这样就可以在Vue的实例中随意使用它了。
 4. 项目结构如下图
 
 
@@ -39,7 +39,7 @@ Vue.js打造一个开源的CNode社区，实现了浏览、发帖、收藏、回
 * **4.16**：加入回复、单条回复、点赞。项目完成。
 
 
-## About源代码地址：👉 [GitHub](https://github.com/microzz/vue-cnode) 个人网站：👉 [microzz.com](https://microzz.com/) GitHub：👉 [microzz](https://github.com/microzz)
+## About源代码地址：👉 [GitHub](https://github.com/microzz/vue-cnode)个人网站：👉 [microzz.com](https://microzz.com/)GitHub：👉 [microzz](https://github.com/microzz)
 
 ## Build Setup
 
@@ -56,7 +56,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-
-
-
