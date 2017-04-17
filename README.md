@@ -25,7 +25,7 @@ Vue.js打造一个开源的CNode社区，实现了浏览、发帖、收藏、回
 3. Moment.js在Vue中用ES6的方式引入会有问题，可以尝试在main.js尝试这样`import moment from 'moment'` `Vue.prototype.moment = moment;`给Vue的原型上添加moment，这样就可以在Vue的实例中随意使用它了。
 4. 项目结构如下图
 
-
+![Vue-CNode by microzz.com](https://github.com/microzz/preview/blob/master/vue_cnode.png?raw=true)
 
 
 
@@ -56,3 +56,5 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+
+
