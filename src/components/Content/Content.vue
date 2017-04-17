@@ -137,7 +137,7 @@ export default {
         z-index: 1;
       }
       .isBorder {
-        border-bottom: 1px solid #ff4081;
+        border-bottom: 2px solid #ff4081;
         font-weight: bold;
         font-size: 120%;
       }

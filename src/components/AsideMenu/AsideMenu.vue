@@ -5,7 +5,7 @@
 
         <div class="user">
           <div class="user-avatar">
-            <img @click="showLogin" :src="userInfo.avatar_url || '../../../static/images/icon-unlogin.svg'" alt="">
+            <img @click="showLogin" :src="userInfo.avatar_url || 'http://omratag7g.bkt.clouddn.com/icon-unlogin.svg'" alt="">
           </div>
           <div class="username">
             {{userInfo.success ? userInfo.loginname : '点击头像登录'}}
@@ -26,7 +26,7 @@
             <i class="icon-info"></i>个人中心
           </div>
 
-          <div class="about block">
+          <div @click="showAbout" class="about block">
             <i class="icon-about"></i>关于
           </div>
 
@@ -71,6 +71,9 @@ export default {
     },
     showNewArticle() {
       this.$store.commit('showNewArticle', true);
+    },
+    showAbout() {
+      this.$store.commit('showAbout', true);
     }
   }
 }

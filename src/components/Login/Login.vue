@@ -9,6 +9,15 @@
       <button @click.stop.prevent="check(inputVal)">验证</button>
     </div>
 
+    <div class="tips">
+      <ul>
+        <li>为了更好的体验请登录😊</li>
+        <li>输入CNode账号的Access Token😄</li>
+        <li>在个人中心可以获取Access Token😉</li>
+        <li>调用的是官方API,请放心使用🤗</li>
+      </ul>
+    </div>
+
   </div>
 </template>
 
@@ -131,6 +140,15 @@ export default {
         border-radius: 3px;
         letter-spacing: 3px;
         outline: none;
+      }
+    }
+    .tips {
+      flex: 2;
+      color: gray;
+      // box-shadow: 0 0 10px gray;
+      // border: 1px solid gray;
+      li {
+        // list-style: none;
       }
     }
   }

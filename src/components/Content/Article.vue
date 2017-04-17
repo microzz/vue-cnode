@@ -1,5 +1,5 @@
 <template lang="html">
-  <div @scroll="toScroll($event)" class="article-detail">
+  <div class="article-detail">
 
     <div v-show="!isLoading" class="body">
 
@@ -20,18 +20,18 @@
         </div>
 
         <div class="reply-input">
-          <input v-model.trim="replyContent" type="text">
+          <input v-model.trim="replyContent" type="text" placeholder="请输入回复内容">
           <button @click="reply('')" type="button">回复</button>
         </div>
 
-        <div v-for="(item, index) of infos.replies" class="reply-item">
+        <div v-for="(item, index) of replies" class="reply-item">
 
           <div class="reply-author">
             <div class="reply-avatar">
               <img :src="item.author.avatar_url" alt="">
               <div class="reply-desc">
                 <router-link :to="{name: 'user', params: {name: item.author && item.author.loginname}}">{{item.author.loginname}}</router-link>
-                  {{index+1}}楼 • {{changeTime(item.create_at)}}
+                  {{replies.length - index}}楼 • {{changeTime(item.create_at)}}
                   <span @click="currentIndex=index" class="reply-at">回复</span>
                   <i @click="ups(index, item.id, item)" :class="[item.ups.indexOf(userInfo.id) !== -1 ? 'ups-yes' : 'ups-no']" class="icon-reply-at"></i>
                   <span class="ups-count">{{ item.ups.length }}</span>
@@ -81,7 +81,8 @@ export default {
       up: 0,
       currentIndex: null, // 回复某个人的 index
       currentUps: null,
-      oArticleDetail: {}
+      replies: []
+      // oArticleDetail: {}
     }
   },
   created() {
@@ -91,6 +92,7 @@ export default {
     this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
       .then(result => result.data.data)
       .then(data => this.infos = data)
+      .then(infos => this.replies = infos.replies.reverse())
       .then(() => this.$store.commit('viewArcticle', false))
       .then(() => {
         this.oImgs = document.querySelector('.md').querySelectorAll('img');
@@ -99,9 +101,9 @@ export default {
         }
       })
   },
-  mounted() {
-    this.oArticleDetail = document.getElementById('article-detail');
-  },
+  // mounted() {
+  //   this.oArticleDetail = document.getElementById('article-detail');
+  // },
   computed: {
     isLoading() {
       return this.$store.state.isLoading;
@@ -131,9 +133,9 @@ export default {
 
   },
   methods: {
-    toScroll(event) {
-      this.oArticleDetail = event.target;
-    },
+    // toScroll(event) {
+    //   this.oArticleDetail = event.target;
+    // },
     collect() {
       if (!this.ak) {
         this.$store.commit('showLogin', true);
@@ -174,8 +176,9 @@ export default {
           this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
             .then(result => result.data.data)
             .then(data => this.infos = data)
+            .then(infos => this.replies = infos.replies.reverse())
             .then(() => {
-              this.oArticleDetail.scrollTop = this.oArticleDetail.scrollHeight;
+              // this.oArticleDetail.scrollTop = this.oArticleDetail.scrollHeight;
               this.replyContent ='';
           })
         })
@@ -188,8 +191,9 @@ export default {
           this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
             .then(result => result.data.data)
             .then(data => this.infos = data)
+            .then(infos => this.replies = infos.replies.reverse())
             .then(() => {
-              this.oArticleDetail.scrollTop = this.oArticleDetail.scrollHeight;
+              // this.oArticleDetail.scrollTop = this.oArticleDetail.scrollHeight;
               this.currentIndex = null;
               this.replyOneContent = ''
             })
@@ -199,6 +203,10 @@ export default {
 
     //点赞
     ups(index, upsId, item) {
+      if (!this.ak) {
+        this.$store.commit('showLogin', true);
+        return;
+      }
       if (item.author.loginname === this.userInfo.loginname) {
         alert('不能自己为自己点赞哦😯')
         return;
@@ -209,6 +217,7 @@ export default {
             this.axios.get('https://cnodejs.org/api/v1/topic/' + this.id)
               .then(result => result.data.data)
               .then(data => this.infos = data)
+              .then(infos => this.replies = infos.replies.reverse())
           }
         })
 
@@ -303,10 +312,13 @@ export default {
               width: 80%;
               height: 40px;
               font-size: 1.3rem;
-              border-bottom: 1px solid rgba(0, 0, 0, .5);
+              border-bottom: 1px solid rgba(0, 0, 0, .2);
               margin-right: 10px;
               padding-left: 5px;
               padding-right: 5px;
+            }
+            input:focus {
+              border-bottom: 1px solid #2196f3;
             }
             button {
               font-size: 1.3rem;
@@ -348,7 +360,7 @@ export default {
                   padding-left: 10px;
                   .reply-at {
                     position: absolute;
-                    right: 70px;
+                    right: 60px;
                   }
                   .icon-reply-at {
                     position: absolute;

@@ -4,7 +4,7 @@
     <div class="title">
       <i @click.stop.prevent="showAsideMenu" class="icon-menu"></i>
       <h1>CNode社区</h1>
-      <i v-show="ak" class="icon-msg"></i>
+      <i @click="showMsg" v-show="ak" class="icon-msg"></i>
       <span v-show="ak" class="msg-count">{{msgCount}}</span>
     </div>
 
@@ -22,6 +22,9 @@ export default {
   methods: {
     showAsideMenu() {
       this.$store.commit('showAsideMenu', true);
+    },
+    showMsg() {
+      this.$store.commit('showMsg', true);
     }
   },
   computed: {
