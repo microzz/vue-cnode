@@ -13,9 +13,7 @@
       <div class="loading">
         <i v-show="isLoading" class="icon-loading"></i>
       </div>
-      <keep-alive>
         <router-view></router-view>
-      </keep-alive>
     </div>
 
     <transition name="slide-fade">

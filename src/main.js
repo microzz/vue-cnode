@@ -28,6 +28,7 @@ const store = new Vuex.Store({
     isShowMsg: false,
     isShowNewArticle: false,
     isShowAbout: false,
+    scrollTop: 0,
     userInfo: localStorage.userInfo && JSON.parse(localStorage.userInfo) || {avatar_url: '', id: '', loginname: '', success: false},
     ak: localStorage.ak || ''
   },
@@ -43,6 +44,9 @@ const store = new Vuex.Store({
     },
     changeMore(state, flag) {
       state.isMore = flag;
+    },
+    changeScrollTop(state, scrollTop) {
+      state.scrollTop = scrollTop;
     },
     showAsideMenu(state, flag) {
       state.isShowAsideMenu = flag;

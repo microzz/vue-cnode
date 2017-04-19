@@ -6,6 +6,7 @@
         <div class="user">
           <div class="user-avatar">
             <img @click="showLogin" :src="userInfo.avatar_url || 'http://omratag7g.bkt.clouddn.com/icon-unlogin.svg'" alt="">
+            <!-- <img @click="showLogin" :src="userInfo.avatar_url || 'https://icdn.microzz.com/20170417_vue_cnode/icon-unlogin.svg'" alt=""> -->
           </div>
           <div class="username">
             {{userInfo.success ? userInfo.loginname : '点击头像登录'}}
